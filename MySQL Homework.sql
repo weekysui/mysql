@@ -24,13 +24,14 @@ select last_name last_name, count(*) num from actor group by last_name having nu
 -- 4c. Oh, no! The actor HARPO WILLIAMS was accidentally entered in the actor table as GROUCHO WILLIAMS, the name of Harpo's second cousin's husband's yoga teacher. Write a query to fix the record.
 update actor set first_name = 'HARPO' where first_name = 'GROUCHO' and last_name='WILLIAMS';
 -- 4d. Perhaps we were too hasty in changing GROUCHO to HARPO. It turns out that GROUCHO was the correct name after all! In a single query, if the first name of the actor is currently HARPO, change it to GROUCHO. Otherwise, change the first name to MUCHO GROUCHO, as that is exactly what the actor will be with the grievous error. BE CAREFUL NOT TO CHANGE THE FIRST NAME OF EVERY ACTOR TO MUCHO GROUCHO, HOWEVER! (Hint: update the record using a unique identifier.)
-update actors 
-set first_name=case
-when 'HARPO' 
-then 'GROUCHO'
-else 'MUCHO GROUCHO'
-end
-where actor_id=173;
+update actor
+set first_name = 
+	case 
+		when  first_name = "HARPO"
+			then "GROUCHO"
+		else "MUCHO GROUCHO"
+	end
+where actor_id = 172;
 -- 5a. You cannot locate the schema of the address table. Which query would you use to re-create it?
 show create table address;
 show columns from address;
@@ -131,9 +132,9 @@ group by c.name
 order by revenue desc
 limit 5;
 -- 8b. How would you display the view that you created in 8a?
-select * from sakila.genres_revenue;
+select * from genres_revenue;
 -- 8c. You find that you no longer need the view top_five_genres. Write a query to delete it.
-drop view sakila.genres_revenue;
+drop view genres_revenue;
 
 
 
